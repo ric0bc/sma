@@ -1,12 +1,12 @@
 import * as firebase from 'firebase';
 
 const config = {
-  apiKey: "AIzaSyB3RuB4kYcbdT7zmufqtL8Apj7td0Y3oL8",
-  authDomain: "smartmanagementapplication.firebaseapp.com",
-  databaseURL: "https://smartmanagementapplication.firebaseio.com",
-  projectId: "smartmanagementapplication",
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
   storageBucket: "",
-  messagingSenderId: "221437129300"
+  messagingSenderId: ""
 };
 
 if(!firebase.apps.length){
