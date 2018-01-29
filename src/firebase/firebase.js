@@ -4,7 +4,7 @@ const config = {
   apiKey: "",
   authDomain: "",
   databaseURL: "",
-  projectId: "",
+  projectId: "smartmanagementapplication",
   storageBucket: "",
   messagingSenderId: ""
 };
