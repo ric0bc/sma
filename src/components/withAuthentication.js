@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { firebase } from '../firebase';
+import { db } from '../firebase';
 
 const withAuthentication = (Component) => {
   class WithAuthentication extends React.Component {
@@ -9,9 +10,13 @@ const withAuthentication = (Component) => {
       const { onSetAuthUser } = this.props;
 
       firebase.auth.onAuthStateChanged(authUser => {
-        authUser 
-          ? onSetAuthUser(authUser)
-          : onSetAuthUser(null);
+        if(authUser){
+          db.onceGetAuthUser(authUser.uid).then(snapshot => 
+            onSetAuthUser(snapshot.val())  
+          );
+        } else {
+          onSetAuthUser(null);
+        }
       });
     }
 

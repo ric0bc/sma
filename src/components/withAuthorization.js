@@ -3,17 +3,15 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
 
-import { firebase } from '../firebase';
 import * as routes from '../constants/routes';
+
 
 const withAuthorization = (authCondition) => (Component) => {
   class WithAuthorization extends React.Component {
     componentDidMount() {
-      firebase.auth.onAuthStateChanged(authUser => {
-        if (!authCondition(authUser)) {
-          this.props.history.push(routes.SIGN_IN);
-        }
-      });
+      if (!authCondition(this.props.authUser)) {
+        this.props.history.push(routes.SIGN_IN);
+      }
     }
 
     render() {
@@ -22,7 +20,7 @@ const withAuthorization = (authCondition) => (Component) => {
   }
 
   const mapStateToProps = (state) => ({
-    authUser: state.sessionState.authUser,
+    authUser: state.sessionState.authUser
   });
 
   return compose(
