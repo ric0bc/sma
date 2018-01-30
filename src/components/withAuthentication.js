@@ -7,8 +7,8 @@ import { db } from '../firebase';
 const withAuthentication = (Component) => {
   class WithAuthentication extends React.Component {
     componentDidMount() {
+      console.log('authentication');
       const { onSetAuthUser } = this.props;
-
       firebase.auth.onAuthStateChanged(authUser => {
         if(authUser){
           db.onceGetAuthUser(authUser.uid).then(snapshot => 

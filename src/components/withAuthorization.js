@@ -8,7 +8,7 @@ import * as routes from '../constants/routes';
 
 const withAuthorization = (authCondition) => (Component) => {
   class WithAuthorization extends React.Component {
-    componentDidMount() {
+    componentWillMount() {
       console.log('2');
       console.log(this.props);
       if (!authCondition(this.props.authUser)) {
@@ -17,9 +17,7 @@ const withAuthorization = (authCondition) => (Component) => {
       }
     }
 
-    render() {
-      console.log('1');
-      
+    render() {     
       return this.props.authUser ? <Component /> : null;
     }
   }
