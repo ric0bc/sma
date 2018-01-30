@@ -7,23 +7,21 @@ import { db } from '../firebase';
 
 class HomePage extends Component {
   componentDidMount() {
-    const { onSetUsers, onSetAuthUser } = this.props;
+    const { onSetUsers } = this.props;
 
     db.onceGetUsers().then(snapshot => 
       onSetUsers(snapshot.val())
     );
   
-    db.onceGetAuthUser(this.props.authUser.uid).then(snapshot =>
-      onSetAuthUser(snapshot.val())
-    );
   }
   render() {
-    const { users } = this.props;
+    const { users, authUser } = this.props;
     
     return (
       <div>
         <h1>Home Page</h1>
         <p>The Home Page is accesible by every signed in user.</p>
+        { !!authUser && authUser.email}
         { !!users && <UserList users={users} /> }
       </div>
     )
@@ -42,14 +40,12 @@ const UserList = ({ users }) =>
 
 const mapStateToProps = (state) => ({
   users: state.userState.users,
-  currentUser: state.userState.currentUser,
   authUser: state.sessionState.authUser
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onSetUsers: (users) => dispatch({type: 'USERS_SET', users}),
-  onSetAuthUser: (user) => dispatch({type: 'CURRENT_USER_SET', user})
-})
+});
 
 const authCondition = (authUser) => !!authUser && authUser.role === 'ADMIN';
 
