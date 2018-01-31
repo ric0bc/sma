@@ -7,6 +7,8 @@ import { db } from '../firebase';
 
 class HomePage extends Component {
   componentDidMount() {
+    console.log('test');
+    
     const { onSetUsers } = this.props;
 
     db.onceGetUsers().then(snapshot => 
